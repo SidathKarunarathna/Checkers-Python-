@@ -74,5 +74,11 @@ class Game:
             textRect = text.get_rect()
             textRect.center = (WIDTH// 2, HEIGHT // 2)
             self.win.blit(text, textRect)
+    def get_board(self):
+        return self.board
+    
+    def ai_move(self,board):
+        self.board =board
+        self.change_turn()
         
 

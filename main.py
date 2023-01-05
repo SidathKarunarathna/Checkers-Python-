@@ -1,7 +1,8 @@
 import pygame
-from Package.constants import WIDTH,HEIGHT,SQUARE_SIZE,RED
+from Package.constants import WIDTH,HEIGHT,SQUARE_SIZE,RED,WHITE
 from Package.board import Board
 from Package.game import Game
+from minimax.algorithm import minimax
 pygame.font.init()
 FPS=60
 
@@ -18,9 +19,12 @@ def main():
     run = True
     clock = pygame.time.Clock()
     game=Game(WIN)
-
+   
     while run:
         clock.tick(FPS)
+        if game.turn==WHITE:
+            value,new_board = minimax(game.get_board(),3,WHITE,game)
+            game.ai_move(new_board)
 
         
         for event in pygame.event.get():
