@@ -1,5 +1,5 @@
 import pygame
-from .constants import RED,WHITE,BLUE,SQUARE_SIZE,BLACK,WIDTH,HEIGHT,GREY,DARK
+from .constants import RED,WHITE,BLUE,SQUARE_SIZE,BLACK,WIDTH,HEIGHT,GREY,DARK,GREEN,BACKGROUND,LOGO
 from .board import Board
 
 
@@ -65,7 +65,7 @@ class Game:
     def winner(self):
         winner= self.board.winner()
         if winner!=None:
-            if winner ==RED:
+            if winner ==RED  and  self.valid_moves=={}:
                 winnertext="PLAYER WINS"
             else:
                 winnertext="COMPUTER WINS"
@@ -84,16 +84,29 @@ class Game:
         self.change_turn()
     
     def score_board(self):
-        pygame.draw.rect(self.win,GREY,(WIDTH,0,300,HEIGHT))
+        pygame.draw.rect(self.win,BACKGROUND,(WIDTH,0,300,HEIGHT))
         font = pygame.font.Font('freesansbold.ttf', 32)
-        player = font.render("PLAYER", True, DARK, GREY)
+        if self.turn == WHITE:
+            comColorSelcted= GREEN
+        else:
+            comColorSelcted=BACKGROUND
+        
+        if self.turn == RED :
+            PlayerColorSelcted= GREEN
+        else:
+            PlayerColorSelcted=BACKGROUND
+        
+        player = font.render("PLAYER", True, DARK, PlayerColorSelcted)
         playerRect=player.get_rect()
         playerRect.center=((WIDTH+300+WIDTH)//2,748)
         self.win.blit(player,playerRect)
-        computer = font.render("COMPUTER", True, DARK, GREY)
+        computer = font.render("COMPUTER", True, DARK, comColorSelcted)
         computerRect=computer.get_rect()
         computerRect.center= ((WIDTH+300+WIDTH)//2,52)
         self.win.blit(computer,computerRect)
+        logorec = LOGO.get_rect()
+        logorec.center= ((WIDTH+300+WIDTH)//2,HEIGHT//2)
+        self.win.blit(LOGO,logorec)
 
 
 
