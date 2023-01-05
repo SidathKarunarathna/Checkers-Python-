@@ -6,7 +6,7 @@ from minimax.algorithm import minimax
 pygame.font.init()
 FPS=60
 
-WIN = pygame.display.set_mode((WIDTH,HEIGHT))
+WIN = pygame.display.set_mode((WIDTH+300,HEIGHT))
 pygame.display.set_caption('Checkers')
 
 def get_row_col_from_mouse(pos):

@@ -1,5 +1,5 @@
 import pygame
-from .constants import RED,WHITE,BLUE,SQUARE_SIZE,BLACK,WIDTH,HEIGHT
+from .constants import RED,WHITE,BLUE,SQUARE_SIZE,BLACK,WIDTH,HEIGHT,GREY,DARK
 from .board import Board
 
 
@@ -10,6 +10,7 @@ class Game:
     
     def update(self):
         self.board.draw(self.win)
+        self.score_board()
         self.draw_valid_moves(self.valid_moves)
         self.winner()
         pygame.display.update()
@@ -65,11 +66,11 @@ class Game:
         winner= self.board.winner()
         if winner!=None:
             if winner ==RED:
-                winnertext="BLACK WINS"
+                winnertext="PLAYER WINS"
             else:
-                winnertext="WHITE WINS"
+                winnertext="COMPUTER WINS"
 
-            font = pygame.font.Font('freesansbold.ttf', 32)
+            font = pygame.font.Font('freesansbold.ttf', 72)
             text = font.render(winnertext, True, WHITE, BLACK)
             textRect = text.get_rect()
             textRect.center = (WIDTH// 2, HEIGHT // 2)
@@ -78,7 +79,23 @@ class Game:
         return self.board
     
     def ai_move(self,board):
+        pygame.time.delay(1000)
         self.board =board
         self.change_turn()
+    
+    def score_board(self):
+        pygame.draw.rect(self.win,GREY,(WIDTH,0,300,HEIGHT))
+        font = pygame.font.Font('freesansbold.ttf', 32)
+        player = font.render("PLAYER", True, DARK, GREY)
+        playerRect=player.get_rect()
+        playerRect.center=((WIDTH+300+WIDTH)//2,748)
+        self.win.blit(player,playerRect)
+        computer = font.render("COMPUTER", True, DARK, GREY)
+        computerRect=computer.get_rect()
+        computerRect.center= ((WIDTH+300+WIDTH)//2,52)
+        self.win.blit(computer,computerRect)
+
+
+
         
 
